@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LiveSlicer - DJ Cue Point Slicer</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="container">
+      <header>
+        <h1>LiveSlicer</h1>
+        <p>
+          Upload a track, define bar-based sections, and export ready-to-drop clips for
+          Ableton Session View.
+        </p>
+      </header>
+
+      <section class="card">
+        <h2>1) Upload Track</h2>
+        <label class="file-label">
+          <span>Select audio file</span>
+          <input id="audioFile" type="file" accept="audio/*" />
+        </label>
+        <p id="fileMeta" class="muted">No track loaded.</p>
+      </section>
+
+      <section class="card">
+        <h2>2) Track Timing</h2>
+        <div class="grid two-col">
+          <label>
+            BPM
+            <input id="bpm" type="number" min="40" max="220" step="0.1" value="124" />
+          </label>
+          <label>
+            Beats per bar
+            <input id="beatsPerBar" type="number" min="1" max="12" value="4" />
+          </label>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>3) Sections (bars)</h2>
+        <p class="muted">
+          Define bars for each transition region. The app auto-creates a final
+          <strong>Remainder</strong> clip so total clip duration matches the full song.
+        </p>
+        <div id="sections" class="sections"></div>
+        <button id="addSection" type="button" class="secondary">+ Add section</button>
+      </section>
+
+      <section class="card actions">
+        <h2>4) Slice + Export</h2>
+        <div class="row">
+          <button id="analyzeBtn" type="button">Analyze layout</button>
+          <button id="exportBtn" type="button" disabled>Export WAV clips</button>
+        </div>
+        <div id="status" class="status"></div>
+        <ul id="clipList" class="clip-list"></ul>
+      </section>
+    </main>
+
+    <template id="sectionTemplate">
+      <div class="section-row">
+        <input class="section-name" type="text" placeholder="Section name" />
+        <input class="section-bars" type="number" min="1" step="1" value="16" />
+        <button type="button" class="danger remove-section" aria-label="Remove section">✕</button>
+      </div>
+    </template>
+
+    <script src="app.js" type="module"></script>
+  </body>
+</html>
